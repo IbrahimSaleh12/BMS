@@ -1,0 +1,11 @@
+<div class="navbar">
+  <h1> <a href="/posts">BMS</a></h1>
+  <nav>
+    <% if(!currentUser) {%>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+      <% } else {%>
+        <a href="/logout">Logout</a>
+        <% } %>
+  </nav>
+</div>

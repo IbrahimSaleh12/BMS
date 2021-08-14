@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate')%>
+  <div class="postContainer">
+
+    <h1>All Posts</h1>
+    <a href="/posts/new" class="btn-create">Create Post</a>
+    <% for(let post of posts) { %>
+      <div class="post">
+        <h3>
+          <%= post.title %>
+        </h3>
+        <p>
+          <%= post.textBody %>
+        </p>
+        <a href="/posts/<%= post._id %>" class="btn-show">Show More</a>
+      </div>
+      <% } %>
+  </div>

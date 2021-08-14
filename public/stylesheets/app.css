@@ -1,0 +1,169 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  margin-bottom: 10px;
+}
+
+
+
+.authForm, .postForm {
+  width: 30%;
+  padding: 32px;
+  background-color: #2a9d8f;
+  border-radius: 10px;
+  box-shadow:  -5px 5px 5px #ace0da;
+  /* box-sizing: border-box; */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 95%;
+  padding: 13px 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 10px;
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  /* color: #2a9d8f; */
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #077c6d;
+  color: #fff;
+  font-weight: bold;
+}
+
+textarea {
+  padding: 13px 10px;
+  width: 95%;
+  border-radius: 5px;
+}
+
+.postContainer {
+  width: 50%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.postContainer h1 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.post {
+  background-color: #fff;
+  padding: 32px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  box-shadow:  5px 5px 5px #ace0da;
+}
+
+.btn-show, .btn-create {
+  display: block;
+  background-color: #fff;
+  color: #2a9d8f;
+  text-align: center;
+  text-decoration: none;
+  padding: 7px;
+}
+
+.btn-show:hover, .btn-create:hover {
+  font-weight: bold;
+  background-color: #fff;
+  color: #2a9d8f;
+}
+
+.btn-delete {
+  color: #ff0000;
+  background-color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-edit {
+  display: block;
+  color: #0000ff;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px 10px;
+  font-size: 20px;
+}
+
+
+.btn-edit:hover {
+  background-color: #0000ff;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+
+footer {
+  margin-top: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: #2a9d8f;
+  color: #fff;
+}
+footer p {
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #2a9d8f;
+  margin-bottom: 20px;
+}
+
+.navbar h1, .navbar a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar nav a {
+  text-decoration: none;
+  padding: 10px;
+}

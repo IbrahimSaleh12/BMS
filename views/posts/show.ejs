@@ -1,0 +1,19 @@
+<% layout('layouts/boilerplate') %>
+  <div class="postContainer">
+
+
+    <div class="post">
+      <h3>
+        <%= post.title %>
+      </h3>
+      <p>
+        <%= post.textBody %>
+      </p>
+      <a href="/posts" class="btn-show">All posts</a>
+      <a href="/posts/<%= post._id %>/edit" class="btn-edit">Edit</a>
+      <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <button class="btn-delete">Delete</button>
+      </form>
+    </div>
+
+  </div>
