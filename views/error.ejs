@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate')%>
+  <div class="postContainer">
+    <div class="post error">
+      <h1>
+        <%= err.message %>
+      </h1>
+      <p>
+        <!-- For Dev puposes only -->
+        <%= err.stack%>
+      </p>
+    </div>
+  </div>

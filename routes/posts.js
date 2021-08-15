@@ -1,6 +1,10 @@
 const express = require('express');
 const Post = require('../models/post');
-const isLoggedIn = require('../middlewares')
+const isLoggedIn = require('../middlewares');
+const catchAsync = require('../utils/catchAsync');
+// const Joi = require('joi');
+const ExpressError = require('../utils/ExpressError');
+const validatePost = require('../schemas');
 
 const router = express.Router();
 
@@ -16,12 +20,13 @@ router.get('/new', isLoggedIn, (req, res) => {
   res.render('posts/new');
 })
 
-router.post('/', isLoggedIn, async (req, res) => {
+router.post('/', isLoggedIn, validatePost, catchAsync(async (req, res) => {
+
   const { title, textBody } = req.body.post;
   const post = new Post({ title, textBody });
   await post.save();
   res.redirect('/posts');
-})
+}))
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -41,7 +46,7 @@ router.get('/:id/edit', isLoggedIn, async (req, res) => {
   res.render('posts/edit', { post });
 })
 
-router.put('/:id', isLoggedIn, async (req, res) => {
+router.put('/:id', isLoggedIn, validatePost, async (req, res) => {
   const { id } = req.params;
   const { title, textBody } = req.body.post;
   await Post.updateOne({ _id: id }, { title, textBody });

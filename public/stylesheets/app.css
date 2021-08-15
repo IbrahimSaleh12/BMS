@@ -167,3 +167,9 @@ footer p {
   text-decoration: none;
   padding: 10px;
 }
+
+.error {
+  background-color: #fa4141;
+  color: #fff;
+  box-shadow:  none;
+}

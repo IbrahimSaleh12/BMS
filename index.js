@@ -7,6 +7,7 @@ const User = require('./models/user');
 const ejs = require('ejs');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const ExpressError = require('./utils/ExpressError');
 const path = require('path');
 const auth = require('./config/auth');
 const users = require('./routes/users');
@@ -71,14 +72,28 @@ app.use((req, res, next) => {
 
 
 //routes
-app.use('/', users);
-app.use('/posts', posts);
-
-
 //must be removed from here later
 app.get('/', async (req, res) => {
   res.send('Welcome to BMS BLOG!');
 })
+
+
+app.use('/', users);
+app.use('/posts', posts);
+
+
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page not Found', 404));
+})
+
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = 'Something went wrong';
+  res.status(statusCode).render('error', { err });
+})
+
+
 
 
 
