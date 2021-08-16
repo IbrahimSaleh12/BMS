@@ -74,7 +74,7 @@ app.use((req, res, next) => {
 //routes
 //must be removed from here later
 app.get('/', async (req, res) => {
-  res.send('Welcome to BMS BLOG!');
+  res.redirect('/posts')
 })
 
 

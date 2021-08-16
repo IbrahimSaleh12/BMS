@@ -5,6 +5,11 @@
     <a href="/posts/new" class="btn-create">Create Post</a>
     <% for(let post of posts) { %>
       <div class="post">
+
+        <small class="muted">
+          Posted by @<%= post.user.username %>
+        </small>
+
         <h3>
           <%= post.title %>
         </h3>

@@ -173,3 +173,7 @@ footer p {
   color: #fff;
   box-shadow:  none;
 }
+
+.muted {
+  color: #b3b2b0;
+}

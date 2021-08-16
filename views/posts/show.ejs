@@ -3,6 +3,9 @@
 
 
     <div class="post">
+      <small class="muted">
+        Posted by @<%= post.user.username %>
+      </small>
       <h3>
         <%= post.title %>
       </h3>
@@ -10,7 +13,7 @@
         <%= post.textBody %>
       </p>
       <a href="/posts" class="btn-show">All posts</a>
-      <% if(currentUser) {%>
+      <% if (currentUser && post.user.equals(currentUser)) {%>
         <a href="/posts/<%= post._id %>/edit" class="btn-edit">Edit</a>
         <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
           <button class="btn-delete">Delete</button>
