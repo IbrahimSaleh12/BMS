@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+const Comment = require('./comment');
 const { Schema } = mongoose;
+
+
+mongoose.model('Comment', commentSchema);
 
 const postSchema = new Schema({
   title: String,
@@ -7,7 +11,11 @@ const postSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 
