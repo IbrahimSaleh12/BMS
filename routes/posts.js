@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 const isLoggedIn = require('../middlewares');
 const catchAsync = require('../utils/catchAsync');
 // const Joi = require('joi');
@@ -31,7 +32,12 @@ router.post('/', isLoggedIn, validatePost, catchAsync(async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findById(id).populate('user');
+  const post = await Post.findById(id).populate('user').populate({
+    path: 'comments',
+    populate: {
+      path: 'user'
+    }
+  });
   res.render('posts/show', { post });
 })
 
@@ -68,5 +74,25 @@ router.put('/:id', isLoggedIn, validatePost, async (req, res) => {
     res.redirect(`/posts/${id}`)
   }
 })
+
+router.post('/:id/comments', isLoggedIn, catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  let comment = new Comment({ commentText: req.body.comment, user: req.user._id })
+  comment = await comment.save();
+  post.comments.push(comment._id);
+  await post.save();
+  res.redirect(`/posts/${id}`);
+}))
+
+router.delete('/:id/comments/:comment_id', isLoggedIn, catchAsync(async (req, res) => {
+  const { id, comment_id } = req.params;
+  const post = await Post.findById(id);
+  if (res.locals.currentUser && post.user.equals(res.locals.currentUser._id)) {
+    await Comment.deleteOne({ _id: comment_id });
+    await Post.findByIdAndUpdate(id, { $pull: { comments: comment_id } });
+  }
+  res.redirect(`/posts/${id}`);
+}));
 
 module.exports = router;

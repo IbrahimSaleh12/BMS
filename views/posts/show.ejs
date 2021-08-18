@@ -20,5 +20,33 @@
         </form>
         <% } %>
     </div>
-
+    <% if(currentUser){ %>
+      <div id="commentSection">
+        <form action="/posts/<%= post._id %>/comments" method="POST">
+          <label for="comment">Add a comment</label>
+          <textarea name="comment" id="comment" cols="30" rows="5" placeholder="Enter a comment"></textarea>
+          <button>Submit</button>
+        </form>
+        <% } %>
+          <% if(post.comments.length> 0){ %>
+            <div id="comments">
+              <h2>Comments</h2>
+              <% for(let comment of post.comments){ %>
+                <div class="post">
+                  <small class="muted">
+                    Commented by @<%= comment.user.username %>
+                  </small>
+                  <p>
+                    <%= comment.commentText %>
+                  </p>
+                  <% if (currentUser && post.user.equals(currentUser)) {%>
+                    <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                      <button class="btn-delete">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+                <% } %>
+            </div>
+            <% } %>
+      </div>
   </div>

@@ -177,3 +177,11 @@ footer p {
 .muted {
   color: #b3b2b0;
 }
+
+#comment {
+  padding: 18px;
+}
+
+#commentSection {
+  margin-top: 50px;
+}
