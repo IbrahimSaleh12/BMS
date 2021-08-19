@@ -40,10 +40,10 @@ router.get('/login', async (req, res) => {
   res.render('users/login');
 })
 
-router.post('/login', passport.authenticate('local', { successRedirect: '/posts', failureRedirect: '/login' }), (req, res) => {
-  if (res.locals.currentUser) {
-    return res.redirect('/posts');
-  }
+router.post('/login', passport.authenticate('local', { failureFlash: false, failureRedirect: '/login' }), (req, res) => {
+  const redirectUrl = req.session.returnTo || '/posts';
+  delete req.session.returnTo;
+  return res.redirect(redirectUrl);
 });
 
 
