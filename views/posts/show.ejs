@@ -39,7 +39,7 @@
                   <p>
                     <%= comment.commentText %>
                   </p>
-                  <% if (currentUser && post.user.equals(currentUser)) {%>
+                  <% if (currentUser && (post.user.equals(currentUser) || comment.user.equals(currentUser))) {%>
                     <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                       <button class="btn-delete">Delete</button>
                     </form>

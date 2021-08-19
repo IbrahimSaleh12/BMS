@@ -12,17 +12,16 @@ const router = express.Router();
 
 
 
-router.get('/', async (req, res) => {
+router.get('/', catchAsync(async (req, res) => {
   const posts = await Post.find({}).populate('user');
   res.render('posts/index', { posts });
-})
+}))
 
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('posts/new');
 })
 
 router.post('/', isLoggedIn, validatePost, catchAsync(async (req, res) => {
-
   const { title, textBody } = req.body.post;
   const post = new Post({ title, textBody });
   post.user = req.user;
@@ -30,7 +29,7 @@ router.post('/', isLoggedIn, validatePost, catchAsync(async (req, res) => {
   res.redirect('/posts');
 }))
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', catchAsync(async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id).populate('user').populate({
     path: 'comments',
@@ -39,9 +38,9 @@ router.get('/:id', async (req, res) => {
     }
   });
   res.render('posts/show', { post });
-})
+}))
 
-router.delete('/:id', isLoggedIn, async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
   if (res.locals.currentUser && post.user.equals(res.locals.currentUser._id)) {
@@ -50,10 +49,9 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
   } else {
     res.redirect(`/posts/${id}`)
   }
+}))
 
-})
-
-router.get('/:id/edit', isLoggedIn, async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
   if (req.user && post.user.equals(req.user._id)) {
@@ -61,9 +59,9 @@ router.get('/:id/edit', isLoggedIn, async (req, res) => {
   } else {
     res.redirect(`/posts/${id}`);
   }
-})
+}))
 
-router.put('/:id', isLoggedIn, validatePost, async (req, res) => {
+router.put('/:id', isLoggedIn, validatePost, catchAsync(async (req, res) => {
   const { id } = req.params;
   const { title, textBody } = req.body.post;
   const post = await Post.findById(id);
@@ -73,7 +71,7 @@ router.put('/:id', isLoggedIn, validatePost, async (req, res) => {
   } else {
     res.redirect(`/posts/${id}`)
   }
-})
+}))
 
 router.post('/:id/comments', isLoggedIn, catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -88,7 +86,8 @@ router.post('/:id/comments', isLoggedIn, catchAsync(async (req, res) => {
 router.delete('/:id/comments/:comment_id', isLoggedIn, catchAsync(async (req, res) => {
   const { id, comment_id } = req.params;
   const post = await Post.findById(id);
-  if (res.locals.currentUser && post.user.equals(res.locals.currentUser._id)) {
+  const comment = await Comment.findById(comment_id);
+  if (res.locals.currentUser && (post.user.equals(res.locals.currentUser._id) || comment.user.equals(res.locals.currentUser._id))) {
     await Comment.deleteOne({ _id: comment_id });
     await Post.findByIdAndUpdate(id, { $pull: { comments: comment_id } });
   }
