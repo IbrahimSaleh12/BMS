@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const flash = require('connect-flash');
 const passport = require('passport');
 const User = require('./models/user');
 const ejs = require('ejs');
@@ -39,6 +40,7 @@ const sessionConfig = {
   // }
 }
 app.use(session(sessionConfig));
+app.use(flash());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(passport.initialize());
@@ -68,7 +70,11 @@ app.use((req, res, next) => {
   next();
 })
 
-
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+})
 
 
 //routes

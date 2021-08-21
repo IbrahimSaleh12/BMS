@@ -1,0 +1,17 @@
+<% if(success && success.length) {%>
+  <div class="postContainer alert alert-success" role="alert">
+    <p>
+      <%= success %>
+    </p>
+    <p class="close">X</p>
+  </div>
+  <% } %>
+
+    <% if(error && error.length) {%>
+      <div class="postContainer alert alert-danger" role="alert">
+        <p>
+          <%= error %>
+        </p>
+        <p class="close">X</p>
+      </div>
+      <% } %>

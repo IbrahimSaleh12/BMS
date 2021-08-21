@@ -185,3 +185,28 @@ footer p {
 #commentSection {
   margin-top: 50px;
 }
+
+.alert { 
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert-success {
+  background-color: #5ceba8;
+}
+.alert-danger {
+  background-color: #f12c2c;
+}
+
+.close {
+  border:none;
+  /* background-color: #5ceba8; */
+  cursor: pointer;
+}
+
