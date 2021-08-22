@@ -16,7 +16,16 @@
         <p>
           <%= post.textBody %>
         </p>
-        <a href="/posts/<%= post._id %>" class="btn-show">Show More</a>
+        <% if(post.comments.length> 1){ %>
+          <small class="muted numComments">
+            <%= post.comments.length %> comments
+          </small>
+          <% } else {%>
+            <small class="muted numComments">
+              1 comment
+            </small>
+            <% } %>
+              <a href="/posts/<%= post._id %>" class="btn-show">Show More</a>
       </div>
       <% } %>
   </div>

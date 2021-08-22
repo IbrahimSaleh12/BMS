@@ -210,3 +210,7 @@ footer p {
   cursor: pointer;
 }
 
+.numComments {
+  padding: 5px;
+  cursor: pointer;
+}
